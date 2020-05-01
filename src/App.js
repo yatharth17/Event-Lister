@@ -5,16 +5,22 @@ import Signup from './Components/Signup/SignUp'
 import './App.css'
 import NavBar from './Components/NavBar/NavBar'
 import Landing from './Components/Landing/Landing'
+import DashBoard from './Components/DashBoard/DashBoard'
+import {UserContextProvider, UserContext} from './context/UserContext';
 const App=()=>{
   return(
     <div className="App">
     <BrowserRouter>
-      <NavBar/>
+    
+    <UserContextProvider>
+    <NavBar/>
       <Switch>
         <Route exact path='/' component={Landing} />
         <Route exact path='/login' component={Login}/>
         <Route exact path='/signup' component={Signup}/>
+        <Route exact path='/dashboard' component={DashBoard}/>
       </Switch>
+      </UserContextProvider>
     </BrowserRouter>
 
     </div>

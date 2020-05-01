@@ -1,7 +1,9 @@
-import React from 'react';
-import {Link} from 'react-router-dom'
-
+import React,{useContext} from 'react';
+import {Link,Redirect} from 'react-router-dom'
+import {UserContext} from '../../context/UserContext'
 const Landing=()=>{
+   const {state}=useContext(UserContext)
+   if(state.isAuthenticated) return <Redirect to='/dashboard'/>
     return(
         <section className='landing'>
       <div className='dark-overlay'>

@@ -1,7 +1,10 @@
 import React,{useState} from 'react';
-import {Link} from 'react-router-dom'
-
+import {Link,useHistory} from 'react-router-dom'
+import axios from 'axios'
+import {useAlert} from 'react-alert'
 const SignUp=()=>{
+    const alert=useAlert()
+    let history=useHistory()
     const [formData,setFormData]=useState({
         name:'',
         email:'',
@@ -16,6 +19,17 @@ const SignUp=()=>{
     }
     const onSubmit=(e)=>{
          e.preventDefault()
+         axios.post('https://hidden-crag-61767.herokuapp.com/register',{
+           name,email,password
+         }).then((res)=>{
+           console.log(res)
+           alert.success('Signup success')
+           history.push('/dashboard');
+         }
+         ).catch(err=>{
+           console.log(err)
+         })
+         
     }
     return(
         <div  className='signup'>
