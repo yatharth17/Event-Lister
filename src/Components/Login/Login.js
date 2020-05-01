@@ -3,7 +3,7 @@ import {Link,useHistory} from 'react-router-dom'
 import axios from 'axios'
 import {useAlert} from 'react-alert'
 import {UserContext} from '../../context/UserContext';
-
+import {trackPromise} from 'react-promise-tracker'
 
 
 const Login=()=>{
@@ -22,7 +22,7 @@ const Login=()=>{
   }
   const onSubmit=async e=>{
     e.preventDefault();
-    axios.post('https://hidden-crag-61767.herokuapp.com/auth',{
+    trackPromise(axios.post('https://hidden-crag-61767.herokuapp.com/auth',{
       email,password
     }).then(res=>{
       console.log(res)
@@ -42,7 +42,7 @@ const Login=()=>{
        })
        history.push('/dashboard')
     
-    })
+    }))
   }
   return(
     <div className="signup">

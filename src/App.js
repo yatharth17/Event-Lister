@@ -7,6 +7,8 @@ import NavBar from './Components/NavBar/NavBar'
 import Landing from './Components/Landing/Landing'
 import DashBoard from './Components/DashBoard/DashBoard'
 import {UserContextProvider, UserContext} from './context/UserContext';
+import {usePromiseTracker} from 'react-promise-tracker'
+import Loader from 'react-promise-loader'
 const App=()=>{
   return(
     <div className="App">
@@ -14,6 +16,7 @@ const App=()=>{
     
     <UserContextProvider>
     <NavBar/>
+    <Loader promiseTracker={usePromiseTracker} color={'#3d5e61'}/>
       <Switch>
         <Route exact path='/' component={Landing} />
         <Route exact path='/login' component={Login}/>

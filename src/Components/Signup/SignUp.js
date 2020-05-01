@@ -2,6 +2,8 @@ import React,{useState} from 'react';
 import {Link,useHistory} from 'react-router-dom'
 import axios from 'axios'
 import {useAlert} from 'react-alert'
+import { trackPromise } from 'react-promise-tracker';
+
 const SignUp=()=>{
     const alert=useAlert()
     let history=useHistory()
@@ -19,16 +21,20 @@ const SignUp=()=>{
     }
     const onSubmit=(e)=>{
          e.preventDefault()
-         axios.post('https://hidden-crag-61767.herokuapp.com/register',{
+         if(password!=password2){
+           alert.error('Passwords Do Not Match')
+           return;
+         }
+         trackPromise(axios.post('https://hidden-crag-61767.herokuapp.com/register',{
            name,email,password
          }).then((res)=>{
            console.log(res)
            alert.success('Signup success')
-           history.push('/dashboard');
+           history.push('/login');
          }
          ).catch(err=>{
            console.log(err)
-         })
+         }))
          
     }
     return(
@@ -45,6 +51,7 @@ const SignUp=()=>{
             name='name'
             value={name}
             onChange={e => onChange(e)}
+            required
           />
         </div>
         <div className='form-group'>
@@ -54,6 +61,7 @@ const SignUp=()=>{
             name='email'
             value={email}
             onChange={e => onChange(e)}
+            required
           />
           <small className='form-text'>
             
@@ -66,6 +74,8 @@ const SignUp=()=>{
             name='password'
             value={password}
             onChange={e => onChange(e)}
+            required
+            minLength='6'
           />
         </div>
         <div className='form-group'>
@@ -75,6 +85,8 @@ const SignUp=()=>{
             name='password2'
             value={password2}
             onChange={e => onChange(e)}
+            required
+            minLength='6'
           />
         </div>
         <input type='submit' className='btn btn-primary' value='Register' />
