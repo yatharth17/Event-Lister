@@ -1,12 +1,13 @@
-import React,{useState} from 'react';
-import {Link,useHistory} from 'react-router-dom'
+import React,{useState,useContext} from 'react';
+import {Link,useHistory, Redirect} from 'react-router-dom'
 import axios from 'axios'
 import {useAlert} from 'react-alert'
 import { trackPromise } from 'react-promise-tracker';
-
+import {UserContext} from '../../context/UserContext'
 const SignUp=()=>{
     const alert=useAlert()
     let history=useHistory()
+    const {state}=useContext(UserContext)
     const [formData,setFormData]=useState({
         name:'',
         email:'',
@@ -37,6 +38,7 @@ const SignUp=()=>{
          }))
          
     }
+    if(state.isAuthenticated) return <Redirect to='/dashboard'/>
     return(
         <div  className='signup'>
 <h1 className='large text-primary'>Sign Up</h1>

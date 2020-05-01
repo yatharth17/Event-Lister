@@ -1,5 +1,5 @@
 import React,{useState,Fragment,useContext} from 'react';
-import {Link,useHistory} from 'react-router-dom'
+import {Link,useHistory, Redirect} from 'react-router-dom'
 import axios from 'axios'
 import {useAlert} from 'react-alert'
 import {UserContext} from '../../context/UserContext';
@@ -44,6 +44,7 @@ const Login=()=>{
     
     }))
   }
+  if(state.isAuthenticated)return <Redirect to='/dashboard'/>
   return(
     <div className="signup">
     <h1 className='large text-primary'>Sign In</h1>
@@ -74,7 +75,7 @@ const Login=()=>{
       <input type='submit' className='btn btn-primary' value='Login' />
     </form>
     <p className='my-1'>
-      Don't have an account? <Link to='/register'>Sign Up</Link>
+      Don't have an account? <Link to='/login'>Sign Up</Link>
     </p>
   </div>
   )
